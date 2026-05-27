@@ -1,0 +1,61 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { useDesign } from '@/context/DesignContext';
+import { DynamicSVGOrnaments } from './DecorativeArt';
+
+export const HeroSection = ({ bride, groom }: { bride: string, groom: string }) => {
+  const design = useDesign();
+
+  // Dynamic animation physics based on generated style
+  const getMotionVariants = () => {
+    switch (design.animation) {
+      case 'ethereal-blur':
+        return {
+          initial: { opacity: 0, filter: 'blur(20px)', scale: 1.05 },
+          animate: { opacity: 1, filter: 'blur(0px)', scale: 1, transition: { duration: 2, ease: [0.16, 1, 0.3, 1] } }
+        };
+      case 'cinematic-fade':
+      default:
+        return {
+          initial: { opacity: 0, y: 30 },
+          animate: { opacity: 1, y: 0, transition: { duration: 1.5, ease: 'easeOut' } }
+        };
+    }
+  };
+
+  const variants = getMotionVariants();
+
+  return (
+    <motion.section 
+      className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden"
+      initial="initial"
+      animate="animate"
+    >
+      {/* Dynamic Background Art */}
+      <DynamicSVGOrnaments 
+        style={design.artDirection} 
+        position="background" 
+        className="absolute inset-0 opacity-30 pointer-events-none"
+      />
+
+      <motion.div variants={variants} className="z-10 text-center flex flex-col items-center">
+        <h3 className="text-sm tracking-[0.3em] uppercase mb-6 text-[var(--color-secondary)]">
+          The Wedding Celebration Of
+        </h3>
+        
+        <h1 className="text-7xl md:text-9xl font-light tracking-tight mb-4">
+          {bride} <span className="italic text-[var(--color-secondary)] font-serif">&</span> {groom}
+        </h1>
+
+        <motion.button 
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="mt-12 px-10 py-4 border border-[var(--color-text)] hover:bg-[var(--color-text)] hover:text-[var(--color-bg)] transition-colors duration-500 uppercase tracking-widest text-xs"
+        >
+          Open Invitation
+        </motion.button>
+      </motion.div>
+    </motion.section>
+  );
+};

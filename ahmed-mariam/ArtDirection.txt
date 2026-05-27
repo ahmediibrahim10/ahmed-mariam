@@ -1,0 +1,25 @@
+export const DynamicSVGOrnaments = ({ style, className }: { style: ArtDirection, className?: string }) => {
+  if (style === 'Modern Botanical') {
+    return (
+      <svg className={className} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
+         {/* Complex elegant leaf/vine paths generated here */}
+         <path d="M50 100 C50 50, 20 50, 20 20 C40 20, 50 40, 50 60 C50 40, 60 20, 80 20 C80 50, 50 50, 50 100" />
+      </svg>
+    );
+  }
+  if (style === 'Art Deco') {
+    return (
+      <svg className={className} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
+         {/* Geometric, symmetrical paths */}
+         <polygon points="50,10 90,50 50,90 10,50" />
+         <polygon points="50,20 80,50 50,80 20,50" />
+      </svg>
+    );
+  }
+  // Fallback to minimal luxury line art
+  return (
+    <svg className={className} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
+       <line x1="50" y1="0" x2="50" y2="100" />
+    </svg>
+  );
+}
